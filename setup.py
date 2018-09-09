@@ -10,6 +10,7 @@ from sqlast.Version import version
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
+    os.system('python setup.py bdist_wheel upload')
     sys.exit()
 
 
@@ -25,7 +26,7 @@ setup(
     author_email='noreply@jacopocascioli.com',
     version=version,
     license='MIT',
-    packages=find_packages(),
+    packages=find_packages() + ['grammar'],
     include_package_data=True,
     tests_require=[
         'coverage>=4.5.1',
