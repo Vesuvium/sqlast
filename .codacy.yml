@@ -1,0 +1,12 @@
+---
+engines:
+ pylint:
+   enabled: true
+ duplication:
+   enabled: true
+ metrics:
+   enabled: true
+ bandit:
+   enabled: true
+   exclude_paths:
+       - tests/**/**
