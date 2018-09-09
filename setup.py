@@ -20,6 +20,7 @@ setup(
     name='sqlast',
     description='An SQL parser that uses LALR for sql parsing',
     long_description=readme,
+    long_description_content_type='text/markdown',
     url='https://github.com/Vesuvium/sqlast',
     author='Jacopo Cascioli',
     author_email='noreply@jacopocascioli.com',
