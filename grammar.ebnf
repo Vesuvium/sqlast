@@ -2,8 +2,8 @@ start: _NL? block+
 
 argument: _OP (NAME|INT) _CP
 
-primary: _PRIMARY _WS _KEY _WS argument
-unique: _UNIQUE argument
+primary: _PRIMARY _WS _KEY
+unique: _UNIQUE
 function_name: NAME _OP _CP
 
 timestamp: TIME_TYPE _WS "without time zone"
@@ -16,12 +16,13 @@ default: _DEFAULT _WS (value|function_name)
 property: not_null | default
 
 constraint: (primary|unique) _COMMA?
+bound_constraint: constraint _WS? argument _COMMA?
 column_name: _QUOTE? NAME _QUOTE?
-column: column_name _WS type (_WS property)* _COMMA?
+column: column_name _WS type (_WS property)* (_WS constraint)? _COMMA?
 
 table_name: NAME (_DOT NAME)*
 table_head:  _CREATE _WS _TABLE _WS table_name _WS? _OP
-table_body: (column _NL)+ (constraint _NL)*
+table_body: (column _NL)+ (bound_constraint _NL)*
 table_block: table_head _NL _INDENT table_body _DEDENT _CP _SCOLON
 
 comment: _COMMENT
