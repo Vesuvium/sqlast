@@ -7,7 +7,7 @@ from .Transformer import Transformer
 
 
 class Parser:
-    def __init__(self, algo='lalr', ebnf_file='grammar.ebnf'):
+    def __init__(self, algo='lalr', ebnf_file='grammar/grammar.ebnf'):
         self.algo = algo
         self.ebnf_file = ebnf_file
 

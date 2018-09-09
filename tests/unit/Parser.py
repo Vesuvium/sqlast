@@ -16,7 +16,7 @@ def parser():
 
 def test_parser_init(parser):
     assert parser.algo == 'lalr'
-    assert parser.ebnf_file == 'grammar.ebnf'
+    assert parser.ebnf_file == 'grammar/grammar.ebnf'
 
 
 def test_parser_init_algo():
