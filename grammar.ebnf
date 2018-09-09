@@ -1,0 +1,65 @@
+start: _NL? block+
+
+argument: _OP (NAME|INT) _CP
+
+primary: _PRIMARY _WS _KEY _WS argument
+unique: _UNIQUE argument
+function_name: NAME _OP _CP
+
+timestamp: TIME_TYPE _WS "without time zone"
+char: CHAR_TYPE _WS _VARYING argument
+type: BOOLEAN_TYPE | INT_TYPE | char | TEXT_TYPE | timestamp | SERIAL_TYPE | UUID_TYPE
+value: INT | FALSE | TRUE
+
+not_null: _NOT _WS _NULL
+default: _DEFAULT _WS (value|function_name)
+property: not_null | default
+
+constraint: (primary|unique) _COMMA?
+column_name: _QUOTE? NAME _QUOTE?
+column: column_name _WS type (_WS property)* _COMMA?
+
+table_name: NAME (_DOT NAME)*
+table_head:  _CREATE _WS _TABLE _WS table_name _WS? _OP
+table_body: (column _NL)+ (constraint _NL)*
+table_block: table_head _NL _INDENT table_body _DEDENT _CP _SCOLON
+
+comment: _COMMENT
+
+line:  comment | block
+block: line _NL | table_block
+
+_CREATE: "CREATE"
+_TABLE: "TABLE"i
+_NOT: "not"i
+_NULL: "null"i
+_DEFAULT: "default"i
+_VARYING: "varying"i
+_PRIMARY: "primary"i
+_KEY: "KEY"i
+_UNIQUE: "UNIQUE"i
+_COMMENT: /--(.*)/
+
+BOOLEAN_TYPE: "boolean"
+INT_TYPE: "integer"
+CHAR_TYPE: "character"
+TEXT_TYPE: "text"
+TIME_TYPE: "timestamp"
+SERIAL_TYPE: "serial"
+UUID_TYPE: "uuid"
+
+NAME: /[a-zA-Z_0-9]+/
+INT: "0".."9"+
+TRUE: "true"
+FALSE: "false"
+
+_WS: (" ")+
+_NL: /(\r?\n[\t ]*)+/
+_INDENT: "<INDENT>"
+_DEDENT: "<DEDENT>"
+_OP: "("
+_CP: ")"
+_COMMA: ","
+_SCOLON: ";"
+_DOT: "."
+_QUOTE: "\""
