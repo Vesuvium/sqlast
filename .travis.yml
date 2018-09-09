@@ -1,0 +1,17 @@
+language: python
+sudo: false
+install:
+    - python setup.py install
+    - pip install tox
+    - pip install codacy-coverage
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
+    - python-codacy-coverage -r coverage.xml
+
+matrix:
+    include:
+        - python: 3.6
+          env: TOXENV=pep8
+        - python: 3.6
+          env: TOXENV=py36
+script: tox
