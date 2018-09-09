@@ -26,6 +26,7 @@ setup(
     version=version,
     license='MIT',
     packages=find_packages(),
+    include_package_data=True,
     tests_require=[
         'coverage>=4.5.1',
         'pytest>=3.6.0',
