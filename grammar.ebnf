@@ -48,8 +48,8 @@ TIME_TYPE: "timestamp"
 SERIAL_TYPE: "serial"
 UUID_TYPE: "uuid"
 
-NAME: /[a-zA-Z_0-9]+/
-INT: "0".."9"+
+NAME.1: /[a-zA-Z_0-9]+/
+INT.2: "0".."9"+
 TRUE: "true"
 FALSE: "false"
 
