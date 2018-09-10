@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 from lark import Lark
 
 from .Grammar import Grammar
@@ -7,7 +9,7 @@ from .Transformer import Transformer
 
 
 class Parser:
-    def __init__(self, algo='lalr', ebnf_file='grammar/grammar.ebnf'):
+    def __init__(self, algo='lalr', ebnf_file=None):
         self.algo = algo
         self.ebnf_file = ebnf_file
 
@@ -24,6 +26,12 @@ class Parser:
         Initialize the transformer
         """
         return Transformer()
+
+    @staticmethod
+    def default_ebnf():
+        folder = os.path.dirname(__file__)
+        path = os.path.join(folder, '..', 'grammar', 'grammar.ebnf')
+        return os.path.realpath(path)
 
     def lark(self):
         grammar = Grammar.grammar(self.ebnf_file)

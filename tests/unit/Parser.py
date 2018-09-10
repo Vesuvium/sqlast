@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 from lark import Lark
 
 from pytest import fixture
@@ -16,7 +18,7 @@ def parser():
 
 def test_parser_init(parser):
     assert parser.algo == 'lalr'
-    assert parser.ebnf_file == 'grammar/grammar.ebnf'
+    assert parser.ebnf_file is None
 
 
 def test_parser_init_algo():
@@ -37,6 +39,15 @@ def test_parser_indenter(patch, parser):
 def test_parser_transfomer(patch, parser):
     patch.init(Transformer)
     assert isinstance(parser.transformer(), Transformer)
+
+
+def test_parser_default_ebnf(patch):
+    patch.object(os, 'path')
+    result = Parser.default_ebnf()
+    args = (os.path.dirname(), '..', 'grammar', 'grammar.ebnf')
+    os.path.join.assert_called_with(*args)
+    os.path.realpath.assert_called_with(os.path.join())
+    assert result == os.path.realpath()
 
 
 def test_parser_lark(patch, parser):
