@@ -34,6 +34,8 @@ class Parser:
         return os.path.realpath(path)
 
     def lark(self):
+        if self.ebnf_file is None:
+            self.ebnf_file = self.default_ebnf()
         grammar = Grammar.grammar(self.ebnf_file)
         return Lark(grammar, parser=self.algo, postlex=self.indenter())
 

@@ -52,13 +52,22 @@ def test_parser_default_ebnf(patch):
 
 def test_parser_lark(patch, parser):
     patch.object(Grammar, 'grammar')
-    patch.object(Parser, 'indenter')
+    patch.many(Parser, ['indenter', 'default_ebnf'])
     patch.init(Lark)
     result = parser.lark()
-    Grammar.grammar.assert_called_with(parser.ebnf_file)
+    Grammar.grammar.assert_called_with(Parser.default_ebnf())
     kwargs = {'parser': parser.algo, 'postlex': Parser.indenter()}
     Lark.__init__.assert_called_with(Grammar.grammar(), **kwargs)
     assert isinstance(result, Lark)
+
+
+def test_parser_lark_ebnf(patch, parser):
+    patch.object(Grammar, 'grammar')
+    patch.object(Parser, 'indenter')
+    patch.init(Lark)
+    parser.ebnf_file = 'grammar.ebnf'
+    parser.lark()
+    Grammar.grammar.assert_called_with('grammar.ebnf')
 
 
 def test_parser_parse(patch, parser):
