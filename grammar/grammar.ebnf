@@ -1,6 +1,7 @@
 start: _NL? block+
 
-argument: _OP (NAME|INT) _CP
+argument_value: NAME | INT
+argument: _OP (argument_value (_COMMA _WS? argument_value)*) _CP
 
 primary: _PRIMARY _WS _KEY
 unique: _UNIQUE
