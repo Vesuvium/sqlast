@@ -10,3 +10,4 @@ engines:
    enabled: true
    exclude_paths:
        - tests/**/**
+       - setup.py
