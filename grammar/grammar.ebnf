@@ -27,9 +27,11 @@ table_head:  _CREATE _WS _TABLE _WS table_name _WS? _OP
 table_body: (column _NL)+ (bound_constraint _NL)*
 table_block: table_head _NL _INDENT table_body _DEDENT _CP _SCOLON
 
+index: _CREATE _WS _INDEX _WS NAME _WS _ON _WS NAME _WS? argument _SCOLON
+
 comment: _COMMENT
 
-line:  comment | block
+line:  comment | index | block
 block: line _NL | table_block
 
 _CREATE: "CREATE"
@@ -45,6 +47,7 @@ _REFS: "references"i
 _ON: "on"i
 _DELETE: "delete"i
 _CASCADE: "cascade"i
+_INDEX: "index"i
 _COMMENT: /--(.*)/
 
 BOOLEAN_TYPE: "boolean"
