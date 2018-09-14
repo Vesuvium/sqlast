@@ -4,6 +4,7 @@ argument: _OP (NAME|INT) _CP
 
 primary: _PRIMARY _WS _KEY
 unique: _UNIQUE
+references: _REFS _WS NAME _WS (_ON _WS _DELETE _WS _CASCADE)?
 function_name: NAME _OP _CP
 
 timestamp: TIME_TYPE _WS "without time zone"
@@ -15,7 +16,7 @@ not_null: _NOT _WS _NULL
 default: _DEFAULT _WS (value|function_name)
 property: not_null | default
 
-constraint: (primary|unique) _COMMA?
+constraint: (primary|unique|references) _COMMA?
 bound_constraint: constraint _WS? argument _COMMA?
 column_name: _QUOTE? NAME _QUOTE?
 column: column_name _WS type (_WS property)* (_WS constraint)? _COMMA?
@@ -39,6 +40,10 @@ _VARYING: "varying"i
 _PRIMARY: "primary"i
 _KEY: "KEY"i
 _UNIQUE: "UNIQUE"i
+_REFS: "references"i
+_ON: "on"i
+_DELETE: "delete"i
+_CASCADE: "cascade"i
 _COMMENT: /--(.*)/
 
 BOOLEAN_TYPE: "boolean"
