@@ -3,4 +3,4 @@ from sqlast.Version import version
 
 
 def test_version_version():
-    assert version == '0.1.3'
+    assert version == '1.0.0'
