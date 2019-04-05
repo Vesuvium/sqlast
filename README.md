@@ -13,6 +13,8 @@ Once the SQL is parsed, is provided as an abstract syntax tree that can be used
 to transpile to another language, for example in an SQL to YAML transpiler,
 to analyse the sql file, or to write your own SQL interpreter.
 
+(Note that the grammar is not finished yet)
+
 
 ## Installing
 
